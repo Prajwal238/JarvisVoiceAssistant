@@ -100,7 +100,7 @@ if __name__ == "__main__":
         elif 'open code' in query:
             subprocess.call(['code'])
 
-        elif 'email me' in query:
+        elif 'send email' in query:
             try:
                 speak('What should I send')
                 content = ListenCmd()
