@@ -8,10 +8,9 @@ import smtplib
 from googlesearch import search
 import os
 
-engine = pyttsx3.init('espeak')
+engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-#print(voices[16].id)
-engine.setProperty('voice', voices[16].id) 
+engine.setProperty('voice', voices[0 ].id) 
 
 def speak(audio):
     engine.say(audio)
@@ -79,6 +78,12 @@ def wrtTextfile(data):
     f.write(f"{data}")
     f.close()
 
+def turnoff(turnoff_query):
+    if(turnoff_query == 'shutdown'):
+        os.system("shutdown /s /t 1")
+    if(turnoff_query == 'restart'):   
+        os.system("shutdown /r /t 1")  
+
 if __name__ == "__main__":
     GreetMe()
     while True:
@@ -100,7 +105,7 @@ if __name__ == "__main__":
         elif 'open code' in query:
             subprocess.call(['code'])
 
-        elif 'send email' in query:
+        elif 'open email' in query:
             try:
                 speak('What should I send')
                 content = ListenCmd()
@@ -150,12 +155,15 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Failed to create! Please try again Boss")
-        
+
+        elif 'turn off' in query:
+            try:
+                speak('Should I shutdown, restart or sleep?')
+                turnoff_query = ListenCmd()
+                turnoff(turnoff_query)
+                
+            except Exception as e:
+                print(e)
+                speak("Please speak again Boss") 
         elif 'close' in query:
             break
-        
-
-
-
-            
-        
